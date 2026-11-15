@@ -1,0 +1,12 @@
+# Backend Laravel
+the-seventh-api/vendor/
+the-seventh-api/node_modules/
+the-seventh-api/.env
+the-seventh-api/storage/*.key
+
+# Frontend React
+the-seventh-web/node_modules/
+the-seventh-web/dist/
+
+# System
+.DS_Store
