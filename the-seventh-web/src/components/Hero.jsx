@@ -1,24 +1,25 @@
 import { Link } from 'react-router-dom';
 
-const BG_IMG =
-  'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1920&q=80';
+// PASTIKAN NAMA FILE DI BAWAH INI SAMA DENGAN YANG ADA DI FOLDER PUBLIC/IMAGES
+const BG_IMG = '/images/hero.jpg'; 
 
 export default function Hero() {
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-      <img
+            <img
         src={BG_IMG}
         alt="The Seventh on stage"
-        className="absolute inset-0 w-full h-full object-cover opacity-40"
+        className="absolute inset-0 w-full h-full object-cover opacity-75"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-ink-950" />
+      {/* Overlay gradien kita tipiskan agar muka personil lebih kelihatan */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-ink-950" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(220,38,38,0.35),transparent_60%)]" />
 
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <p className="font-display text-blood-500 tracking-[0.6em] text-xs md:text-sm mb-6 uppercase">
           Alternative Rock · Est. 2014
         </p>
-        <h1 className="font-display font-bold text-white uppercase leading-none text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] tracking-tight drop-shadow-[0_0_50px_rgba(220,38,38,0.4)]">
+        <h1 className="font-display font-bold text-white uppercase leading-none text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-wide drop-shadow-[0_0_50px_rgba(220,38,38,0.4)]">
           THE SEVENTH
         </h1>
         <p className="mt-8 text-gray-300 max-w-xl mx-auto text-sm md:text-base">
