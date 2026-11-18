@@ -7,24 +7,24 @@ import Hero from '../components/Hero';
 const DUMMY_NEWS = [
   {
     id: 1,
-    title: "The Seventh Rilis Single Terbaru 'Darkness'",
-    excerpt: "Single yang terinspirasi dari kerasnya kehidupan kota, direkam 100% di studio independen.",
-    image_url: "/images/gallery-1.jpg",
-    date: "12 Nov 2026"
+    title: "Website Resmi The Seventh Kini Hadir!",
+    excerpt: "Akhirnya kalian bisa mengenal kami lebih dekat. Silakan jelajahi galeri dan ikuti perjalanan kami di sini.",
+    image_url: "/images/hero.jpg",
+    date: "19 Nov 2026"
   },
   {
     id: 2,
-    title: "Behind The Scene: Studio Session",
-    excerpt: "Proses kreatif di balik layar pembuatan album pertama kami. Penuh tawa dan air mata.",
+    title: "Kenalan Yuk Sama Personil The Seventh",
+    excerpt: "Dari gitaris yang suka ngopi sampai vokalis yang hobi begadang. Baca cerita di balik terbentuknya band ini.",
     image_url: "/images/gallery-2.jpg",
-    date: "05 Nov 2026"
+    date: "15 Nov 2026"
   },
   {
     id: 3,
-    title: "The Seventh Guncang Panggung Lokal",
-    excerpt: "Terima kasih untuk ribuan kepala yang bergoyang malam itu. Sampai jumpa di kota berikutnya!",
-    image_url: "/images/hero.jpg",
-    date: "28 Okt 2026"
+    title: "Sesi Latihan & Persiapan Materi Baru",
+    excerpt: "Kami sedang sibuk di studio untuk meracik materi baru. Doakan semoga lancar dan segera bisa kalian dengar!",
+    image_url: "/images/gallery-1.jpg",
+    date: "10 Nov 2026"
   }
 ];
 

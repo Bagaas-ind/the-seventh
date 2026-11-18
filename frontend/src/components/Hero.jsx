@@ -23,8 +23,6 @@ export default function Hero() {
           THE SEVENTH
         </h1>
         <p className="mt-8 text-gray-300 max-w-xl mx-auto text-sm md:text-base">
-          Darkness has a sound. Experience the loudest chapter of our story —
-          raw riffs, heavy drums, and lyrics that cut deep.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-4">
           <Link
