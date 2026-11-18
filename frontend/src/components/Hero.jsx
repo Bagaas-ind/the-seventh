@@ -25,17 +25,11 @@ export default function Hero() {
         <p className="mt-8 text-gray-300 max-w-xl mx-auto text-sm md:text-base">
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <Link
-            to="/tour"
+                   <Link
+            to="/news"
             className="bg-blood-600 hover:bg-blood-700 text-white font-display uppercase tracking-[0.25em] text-xs px-8 py-4 transition-all shadow-lg shadow-blood-900/40"
           >
-            Upcoming Tour
-          </Link>
-          <Link
-            to="/gallery"
-            className="border border-gray-600 hover:border-blood-600 hover:text-blood-500 text-gray-200 font-display uppercase tracking-[0.25em] text-xs px-8 py-4 transition-all"
-          >
-            View Gallery
+            Read Our News
           </Link>
         </div>
       </div>
