@@ -3,8 +3,8 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Admin from './pages/Admin';
 import News from './pages/News';
+import NewsDetail from './pages/NewsDetail'; // <-- TAMBAHKAN INI
 import Gallery from './pages/Gallery';
-// import Tour from './pages/Tour'; <-- HAPUS ATAU JADIKAN KOMENTAR
 
 export default function App() {
   return (
@@ -14,7 +14,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<News />} />
-          {/* <Route path="/tour" element={<Tour />} /> */} {/* <-- HAPUS ATAU JADIKAN KOMENTAR */}
+          <Route path="/news/:slug" element={<NewsDetail />} /> {/* <-- TAMBAHKAN INI */}
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>

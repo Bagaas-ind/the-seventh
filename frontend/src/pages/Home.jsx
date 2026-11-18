@@ -1,38 +1,27 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import api from '../api/axios';
 import Hero from '../components/Hero';
+import NewsCard from '../components/NewsCard';
 
-const DUMMY_NEWS = [
-  {
-    id: 1,
-    title: "Website Resmi The Seventh Kini Hadir!",
-    excerpt: "Akhirnya kalian bisa mengenal kami lebih dekat. Silakan jelajahi galeri dan ikuti perjalanan kami di sini.",
-    image_url: "/images/hero.jpg",
-    date: "19 Nov 2026"
-  },
-  {
-    id: 2,
-    title: "Kenalan Yuk Sama Personil The Seventh",
-    excerpt: "Dari gitaris yang suka ngopi sampai vokalis yang hobi begadang. Baca cerita di balik terbentuknya band ini.",
-    image_url: "/images/gallery-2.jpg",
-    date: "15 Nov 2026"
-  },
-  {
-    id: 3,
-    title: "Sesi Latihan & Persiapan Materi Baru",
-    excerpt: "Kami sedang sibuk di studio untuk meracik materi baru. Doakan semoga lancar dan segera bisa kalian dengar!",
-    image_url: "/images/gallery-1.jpg",
-    date: "10 Nov 2026"
-  }
-];
-
-// Animasi standar untuk section
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 };
 
 export default function Home() {
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Ambil berita terbaru, kita batasi hanya ambil 3 untuk Home
+    api.get('/news')
+      .then((res) => setNews(res.data.slice(0, 3)))
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <div className="bg-ink-950 text-gray-200 overflow-hidden">
       <Hero />
@@ -75,20 +64,17 @@ export default function Home() {
             <Link to="/news" className="font-display uppercase tracking-[0.2em] text-xs text-gray-400 hover:text-blood-500 transition-colors mb-2">View All →</Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {DUMMY_NEWS.map((n) => (
-              <article key={n.id} className="group bg-ink-950 border border-ink-800 hover:border-blood-600 transition-all duration-300 overflow-hidden">
-                <div className="aspect-video overflow-hidden bg-ink-800">
-                  <img src={n.image_url} alt={n.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 grayscale group-hover:grayscale-0" />
-                </div>
-                <div className="p-6">
-                  <p className="text-[11px] text-blood-500 font-display tracking-[0.25em] uppercase mb-3">{n.date}</p>
-                  <h3 className="font-display text-xl font-semibold text-white group-hover:text-blood-500 transition-colors leading-tight mb-3">{n.title}</h3>
-                  <p className="text-sm text-gray-400 line-clamp-2">{n.excerpt}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+          {loading ? (
+            <p className="text-gray-500">Memuat berita terbaru...</p>
+          ) : news.length === 0 ? (
+            <p className="text-gray-500">Belum ada berita. Silakan tambah dari halaman Admin.</p>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-6">
+              {news.map((n) => (
+                <NewsCard key={n.id} news={n} />
+              ))}
+            </div>
+          )}
         </div>
       </motion.section>
 

@@ -5,15 +5,11 @@ import NewsCard from '../components/NewsCard';
 export default function News() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     api.get('/news')
       .then((res) => setNews(res.data))
-      .catch((err) => {
-        console.error(err);
-        setError('Gagal memuat data. Pastikan backend Laravel menyala.');
-      })
+      .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, []);
 
@@ -26,14 +22,9 @@ export default function News() {
         </div>
 
         {loading ? (
-          <p className="text-gray-400 font-display tracking-widest uppercase">Memuat berita...</p>
-        ) : error ? (
-          <p className="text-blood-500 font-display">{error}</p>
+          <p className="text-gray-500">Memuat berita...</p>
         ) : news.length === 0 ? (
-          <div className="text-center py-20 border border-dashed border-ink-800 bg-ink-900/30">
-            <p className="text-gray-400 font-display tracking-widest uppercase">Belum ada berita.</p>
-            <p className="text-sm text-gray-500 mt-2">Silakan login ke halaman Admin untuk menambahkan berita pertama.</p>
-          </div>
+          <p className="text-gray-500">Belum ada berita. Silakan tambah via Admin.</p>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {news.map((n) => <NewsCard key={n.id} news={n} />)}
