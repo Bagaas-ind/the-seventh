@@ -17,6 +17,7 @@ export default function Admin() {
   const [items, setItems] = useState([]);
   const [form, setForm] = useState(EMPTY.news);
   const [editId, setEditId] = useState(null);
+  const [uploading, setUploading] = useState(false); // State untuk loading upload
 
   const loadData = async (t = tab) => {
     try {
@@ -54,6 +55,30 @@ export default function Admin() {
     setEditId(null);
   };
 
+  // ---- FUNGSI UPLOAD GAMBAR ----
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    setUploading(true);
+    try {
+      const res = await api.post('/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      // Simpan URL yang didapat dari Laravel ke dalam state form
+      setForm({ ...form, image_url: res.data.url });
+      alert('Gambar berhasil di-upload!');
+    } catch (error) {
+      alert('Gagal upload gambar. Pastikan file < 5MB dan berformat JPG/PNG.');
+      console.error(error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const submit = async (e) => {
     e.preventDefault();
     try {
@@ -62,7 +87,7 @@ export default function Admin() {
       resetForm();
       loadData();
     } catch (error) {
-      alert('Gagal menyimpan. Cek kembali isian form Anda.');
+      alert('Gagal menyimpan data. Cek kembali isian form Anda.');
     }
   };
 
@@ -75,7 +100,6 @@ export default function Admin() {
   const startEdit = (item) => {
     setEditId(item.id);
     const { id, created_at, updated_at, ...rest } = item;
-    if (tab === 'tours' && rest.date) rest.date = rest.date.split('T')[0]; // Format tanggal untuk input
     setForm(rest);
   };
 
@@ -107,7 +131,6 @@ export default function Admin() {
           <button onClick={logout} className="text-xs font-display uppercase tracking-widest text-gray-400 hover:text-blood-500">Logout →</button>
         </div>
 
-        {/* TABS */}
         <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
           {TABS.map((t) => (
             <button key={t} onClick={() => { setTab(t); setForm(EMPTY[t]); setEditId(null); }} className={`font-display uppercase tracking-widest text-xs px-5 py-2 border transition-colors whitespace-nowrap ${tab === t ? 'bg-blood-600 border-blood-600 text-white' : 'border-ink-800 text-gray-400 hover:border-blood-600 hover:text-white'}`}>
@@ -118,22 +141,41 @@ export default function Admin() {
 
         <div className="grid lg:grid-cols-5 gap-8">
           {/* FORM INPUT */}
-          <form onSubmit={submit} className="lg:col-span-2 bg-ink-900 border border-ink-800 p-6 space-y-3 h-fit">
+          <form onSubmit={submit} className="lg:col-span-2 bg-ink-900 border border-ink-800 p-6 space-y-4 h-fit">
             <h2 className="font-display text-lg font-bold text-white mb-2">{editId ? 'Edit' : 'Tambah'} {tab}</h2>
+            
             {Object.keys(EMPTY[tab]).map((k) => (
               <div key={k}>
                 <label className="block text-[10px] uppercase tracking-widest text-gray-500 mb-1">{k}</label>
-                <input
-                  type={k === 'date' ? 'date' : 'text'}
-                  value={form[k] || ''}
-                  onChange={(e) => setForm({ ...form, [k]: e.target.value })}
-                  className="w-full bg-ink-950 border border-ink-800 focus:border-blood-600 px-3 py-2 text-sm text-white outline-none"
-                  required={['title', 'embed_url', 'image_url', 'city', 'date', 'venue'].includes(k)}
-                />
+                
+                {/* Logika Khusus untuk Input File Gambar */}
+                {(k === 'image_url') ? (
+                  <div className="space-y-2">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      className="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blood-600 file:text-white hover:file:bg-blood-700 cursor-pointer"
+                    />
+                    {uploading && <p className="text-xs text-blood-500 animate-pulse">Mengunggah gambar...</p>}
+                    {form[k] && (
+                      <img src={form[k]} alt="Preview" className="w-full h-32 object-cover border border-ink-800" />
+                    )}
+                  </div>
+                ) : (
+                  <input
+                    type={k === 'date' ? 'date' : 'text'}
+                    value={form[k] || ''}
+                    onChange={(e) => setForm({ ...form, [k]: e.target.value })}
+                    className="w-full bg-ink-950 border border-ink-800 focus:border-blood-600 px-3 py-2 text-sm text-white outline-none"
+                    required={['title', 'content', 'embed_url', 'caption'].includes(k) && !form[k]}
+                  />
+                )}
               </div>
             ))}
-            <div className="flex gap-2 pt-2">
-              <button className="flex-1 bg-blood-600 hover:bg-blood-700 text-white font-display uppercase tracking-widest text-xs py-3">{editId ? 'Update' : 'Simpan'}</button>
+            
+            <div className="flex gap-2 pt-4">
+              <button disabled={uploading} className="flex-1 bg-blood-600 hover:bg-blood-700 disabled:opacity-50 text-white font-display uppercase tracking-widest text-xs py-3">{editId ? 'Update' : 'Simpan'}</button>
               {editId && <button type="button" onClick={resetForm} className="px-4 border border-ink-800 text-gray-400 hover:text-white text-xs uppercase tracking-widest">Cancel</button>}
             </div>
           </form>
@@ -152,7 +194,7 @@ export default function Admin() {
                 {items.map((it) => (
                   <tr key={it.id} className="border-b border-ink-800/60 hover:bg-ink-950/60">
                     <td className="p-3 text-gray-500">{it.id}</td>
-                    <td className="p-3 text-gray-200">{it.title || it.city || it.caption || it.type}</td>
+                    <td className="p-3 text-gray-200">{it.title || it.caption || it.type}</td>
                     <td className="p-3">
                       <button onClick={() => startEdit(it)} className="text-xs text-blood-500 hover:underline mr-3">Edit</button>
                       <button onClick={() => remove(it.id)} className="text-xs text-gray-400 hover:text-blood-500">Hapus</button>

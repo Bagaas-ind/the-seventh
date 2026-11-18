@@ -12,6 +12,8 @@ Route::get('/news/{slug}',     [NewsController::class, 'show']);
 Route::get('/tours',           [TourController::class, 'index']);
 Route::get('/music',           [MusicController::class, 'index']);
 Route::get('/galleries',       [GalleryController::class, 'index']);
+    // Upload
+    Route::post('/upload', [\App\Http\Controllers\UploadController::class, 'store']);
 
 /* ---------- AUTH ROUTES ---------- */
 Route::post('/login', [AuthController::class, 'login']);
