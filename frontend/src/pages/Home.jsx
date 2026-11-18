@@ -28,18 +28,12 @@ const DUMMY_NEWS = [
   }
 ];
 
-const DUMMY_TOURS = [
-  { id: 1, date: "2026-12-15", city: "Jakarta", venue: "Tennis Indoor Senayan", link: "#" },
-  { id: 2, date: "2026-12-20", city: "Bandung", venue: "Sabuga ITB", link: "#" },
-  { id: 3, date: "2027-01-10", city: "Surabaya", venue: "Grand City Hall", link: "#" },
-];
-
 export default function Home() {
   return (
     <div className="bg-ink-950 text-gray-200">
       <Hero />
 
-      {/* ================= ABOUT SECTION (BARU) ================= */}
+      {/* ================= ABOUT SECTION ================= */}
       <section className="max-w-7xl mx-auto px-5 md:px-8 py-24 grid md:grid-cols-2 gap-12 items-center">
         <div>
           <p className="font-display text-blood-500 uppercase tracking-[0.4em] text-xs">/ The Band</p>
@@ -55,9 +49,9 @@ export default function Home() {
             <span className="border border-ink-800 px-4 py-2">#PostGrunge</span>
           </div>
         </div>
-<div className="relative aspect-[4/3] bg-ink-900 border border-ink-800 grayscale hover:grayscale-0 transition-all duration-700">
-   <img src="/images/gallery-2.jpg" alt="The Band" className="w-full h-full object-cover object-center" />
-</div>
+        <div className="relative aspect-[4/3] bg-ink-900 border border-ink-800 grayscale hover:grayscale-0 transition-all duration-700">
+          <img src="/images/gallery-2.jpg" alt="The Band" className="w-full h-full object-cover object-center" />
+        </div>
       </section>
 
       {/* ================= LATEST NEWS ================= */}
@@ -68,7 +62,10 @@ export default function Home() {
               <p className="font-display text-blood-500 uppercase tracking-[0.4em] text-xs">/ Latest</p>
               <h2 className="font-display text-4xl md:text-5xl font-bold text-white mt-2">NEWS</h2>
             </div>
-            <Link to="/news" className="font-display uppercase tracking-[0.2em] text-xs text-gray-400 hover:text-blood-500 transition-colors">
+            <Link 
+              to="/news" 
+              className="font-display uppercase tracking-[0.2em] text-xs text-gray-400 hover:text-blood-500 transition-colors mb-2"
+            >
               View All →
             </Link>
           </div>
@@ -109,39 +106,6 @@ export default function Home() {
         </a>
       </section>
 
-      {/* ================= TOUR ================= */}
-      <section className="bg-ink-900/30 py-24 border-y border-ink-800">
-        <div className="max-w-5xl mx-auto px-5 md:px-8">
-          <div className="mb-12 text-center">
-            <p className="font-display text-blood-500 uppercase tracking-[0.4em] text-xs">/ Live</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-white mt-2">TOUR DATES</h2>
-          </div>
-
-          <div className="border-t border-ink-800">
-            {DUMMY_TOURS.map((t) => {
-              const d = new Date(t.date);
-              return (
-                <div key={t.id} className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-6 border-b border-ink-800 hover:bg-ink-950/50 transition-colors group px-4">
-                  <div className="flex items-center gap-6">
-                    <div className="text-center min-w-[70px]">
-                      <p className="font-display text-3xl font-bold text-white leading-none">{String(d.getDate()).padStart(2, '0')}</p>
-                      <p className="font-display text-[10px] uppercase tracking-[0.25em] text-blood-500 mt-1">{d.toLocaleDateString('id-ID', { month: 'short' })} {d.getFullYear()}</p>
-                    </div>
-                    <div>
-                      <p className="font-display text-xl font-semibold text-white group-hover:text-blood-500 transition-colors">{t.city}</p>
-                      <p className="text-sm text-gray-400">{t.venue}</p>
-                    </div>
-                  </div>
-                  <button className="self-start md:self-auto bg-blood-600 hover:bg-blood-700 text-white font-display uppercase tracking-[0.25em] text-xs px-6 py-3 transition-colors">
-                    Buy Tickets
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* ================= FOOTER ================= */}
       <footer className="py-12 bg-black">
         <div className="max-w-7xl mx-auto px-5 md:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -149,8 +113,8 @@ export default function Home() {
             © {new Date().getFullYear()} The Seventh. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a href="https://www.youtube.com/@the_sventh7" target="_blank" rel="noreferrer" className="font-display text-xs uppercase tracking-[0.2em] text-gray-400 hover:text-blood-500">YouTube</a>
-            <a href="https://www.instagram.com/the_sventh/" target="_blank" rel="noreferrer" className="font-display text-xs uppercase tracking-[0.2em] text-gray-400 hover:text-blood-500">Instagram</a>
+            <a href="https://www.youtube.com/@the_sventh7" target="_blank" rel="noreferrer" className="font-display text-xs uppercase tracking-[0.2em] text-gray-400 hover:text-blood-500 transition-colors">YouTube</a>
+            <a href="https://www.instagram.com/the_sventh/" target="_blank" rel="noreferrer" className="font-display text-xs uppercase tracking-[0.2em] text-gray-400 hover:text-blood-500 transition-colors">Instagram</a>
           </div>
         </div>
       </footer>
