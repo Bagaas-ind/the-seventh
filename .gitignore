@@ -1,12 +1,12 @@
 # Backend Laravel
-the-seventh-api/vendor/
-the-seventh-api/node_modules/
-the-seventh-api/.env
-the-seventh-api/storage/*.key
+backend/vendor/
+backend/node_modules/
+backend/.env
+backend/storage/*.key
 
 # Frontend React
-the-seventh-web/node_modules/
-the-seventh-web/dist/
+frontend/node_modules/
+frontend/dist/
 
 # System
 .DS_Store
