@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import api from '../api/axios';
 
-const TABS = ['news', 'tours', 'music', 'galleries'];
+const TABS = ['news', 'music', 'galleries'];
 
 const EMPTY = {
   news: { title: '', excerpt: '', content: '', image_url: '' },
-  tours: { date: '', city: '', venue: '', ticket_link: '' },
   music: { title: '', type: 'Single', embed_url: '' },
   galleries: { image_url: '', caption: '' },
 };
